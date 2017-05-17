@@ -1,0 +1,184 @@
+/**
+ * WARNING: Do not change this file. Your changes will be lost.
+ * 2016-09-01 20:59:54 */
+body.boxed {
+}
+@media (min-width: 768px) {
+    .page-layout-1column .product-info-main, .page-layout-2columns-left .product-info-main, .page-layout-2columns-right .product-info-main, .page-layout-3columns .product-info-main {
+        width: 65.33%;
+    }
+    .page-layout-1column .product.media, .page-layout-2columns-left .product.media, .page-layout-2columns-right .product.media, .page-layout-3columns .product.media {
+        width: 32.67%;
+    }
+}
+@media (max-width: 480px){
+    .products-grid .product-item {
+        float: none;
+        width: 100%;
+        padding: 10px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-toggle:before, .nav-toggle:hover:before, .page-header.type3 .block-search .label:before, .page-header.type3 .block-search .label:hover:before, .page-header.type3 .minicart-wrapper .action.showcart:before {
+        color: #fff;
+    }
+    .page-header.type3 .minicart-wrapper .action.showcart .counter.qty {
+        color: #313131;
+    }
+}
+
+
+/*****eCovalence CSS*****/
+
+div.cdc-header{
+ background:url(//www.compositedeckcleaner.com/pub/media/wysiwyg/Corte-Clean_CompositeDeckCleaner_header-bg.jpg) no-repeat center;
+  background-size:cover;
+  border:none;
+ margin-top: -20px;
+}
+.cdc-header-left{
+  padding:40px 80px 0 0;
+}
+.cdc-header-right{
+  background:url(//www.compositedeckcleaner.com/skin/frontend/pt/rmp/images/free_price_quote.png);
+  height:413px;
+}
+h2.text-uppercase.text-center{
+  font-family:'Open Sans', sans-serif;
+  font-weight:800;
+  color:#fff;
+}
+img.img-responsive{
+  margin:auto;
+}
+img.cdc-header-product{
+  margin:auto;
+}
+.media-video-wrap {
+    padding: 40px;
+}
+
+.media-video-wrap .col-md-7 {
+    padding-left: 60px;
+}
+
+.media-video-wrap h2 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 800;
+    color: #474747;
+    font-size: 36px;
+    margin-bottom: 0;
+}
+
+.media-video-wrap h3 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 800;
+    color: #474747;
+    font-size: 24px;
+    margin-top: 0;
+}
+
+.media-video-wrap .col-md-4 {
+    padding: 0;
+}
+div.cdc-recommended {
+background-image: url(//www.compositedeckcleaner.com/skin/frontend/pt/rmp/images/bkg_before_after.png);
+background-size: cover;
+border: none;
+}
+.cdc-banner-learn {
+margin: auto;
+text-align: center;
+margin: -20px 0 40px 0;
+}
+.cdc-recommended .col-md-6 {
+padding: 0;
+margin: auto;
+text-align: center;
+}
+.cdc-recommended .before-after {
+padding: 0 80px;
+}
+.before-after p {
+padding: 0;
+margin: 0;
+}
+.cdc-recommended h4 {
+color: #107fc9;
+font-weight: bold;
+}
+.col-md-6.cdc-list {
+    text-align: left;
+}
+
+.cdc-recommended .col-md-4 {
+    padding-left: 0;
+}
+
+.cdc-recommended ul {
+    padding: 0;
+}
+
+.cdc-recommended li {
+    margin: 0;
+}
+
+.cdc-recommended h5 {
+    color: #107fc9;
+    font-weight: bold;
+    margin: 10px 0 0;
+}
+
+.page-main .column.main {
+    padding-bottom: 0;
+}
+
+.cdc-recommended .container {
+    padding-bottom: 40px;
+}
+div#badge-250 {
+    margin: auto;
+}
+
+.cms-home .page-main {
+    padding-bottom: 0;
+}
+.cdc-head-line {
+background: url(http://www.compositedeckcleaner.com/skin/frontend/pt/rmp/images/border-top.png) no-repeat;
+padding-top: 20px;
+margin: 30px auto 0;
+}
+.page-wrapper > .breadcrumbs, .page-wrapper > .top-container, .page-wrapper > .widget {
+	box-sizing: border-box;
+	width: 100%;
+	display: block;
+	background-color: #daa900;
+}
+.sidebar-main .widget.block.block-cms-link a span {
+    color: #949494;
+}
+.widget.block-categories li {
+    padding: 8px 3px 8px 18px;
+    position: relative;
+    line-height: 1.3;
+    border-bottom: 1px solid #ddd;
+    margin: 0;
+}
+.widget.block.block-categories.cdc-menu {
+	margin: 69px 0 0 0;
+}
+.cdc-menu h4 {
+	margin: 0;
+}
+.main_page_content .content-right p {
+	color: #777;
+	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1.4;
+	font-size: 1.3rem;
+}
+.page-title-wrapper.product {
+    display: block;
+}
