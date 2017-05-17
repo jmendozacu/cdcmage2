@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Wyomind_GoogleTrustedStores::css/validator.css"/>
+        <link src="Wyomind_GoogleTrustedStores::js/testorder.js"/>
+        <link src="Wyomind_GoogleTrustedStores::js/validator.js"/>
+    </head>
+    <update handle="checkout_onepage_success"/>
+    
+    <!-- translation -->
+    <referenceContainer name="after.body.start">
+        <block class="Magento\Framework\View\Element\Template" name="js_translate" as="js_translate" template="Wyomind_GoogleTrustedStores::translate.phtml"/>
+    </referenceContainer>
+    
+</page>

@@ -1,0 +1,26 @@
+/********************** Tabs */
+.product-view .tabs {  overflow:hidden;  zoom: 1;}
+.product-view .tabs li                { width:184px; height:36px; float:left;line-height:1em;  background:url(../images/bkg_tab_black.png); }
+.product-view .tabs li.first          { border-left:0; }
+.product-view .tabs li.last           { border-right:0; }
+.product-view .tabs li.active		  { background:url(../images/bkg_tab_white.png);}
+#product_tabs_last{ border-bottom:1px solid #e7e7e7; width:348px;background:none;}
+.product-view .tabs a                 { display:block; padding:6px 10px; color:#444; text-decoration: none; font-size: 16px; line-height:1.3em;text-align:center;}
+/*
+.product-view .tabs a:hover           { background-color:#ddd; text-decoration:none; color:#444; ; text-decoration: none;}
+.product-view .tabs li.active a,
+.product-view .tabs li.active a:hover { background:#496778;  font-weight:bold; color:#fff; }
+*/
+.product-view .padder {border:solid 1px #e7e7e7;border-top:0; padding:50px; padding-left:50px;}
+#product_tabs_tags_tabbed_contents.input-box input	{ width: 300px; }
+#product_tabs_tags_tabbed_contents .input-box	{ width: 300px; float:left; margin-right: 10px;}
+#product_tabs_related_tabbed_contents li	{ float:left; margin-right: 10px;}
+#product_tabs_related_tabbed_contents ol	{ clear: both;}
+.product-collateral:after { content:"."; display:block; clear:both; font-size:0; line-height:0; height:0; overflow:hidden; zoom: 1}
+.product-specs p {margin: 0 0 6px;font:12px Arial;color:#474747;}
+.product-specs h3 {margin: 0 0 6px;font:12px Arial;color:#474747;}
+.product-specs h3 span strong {font-size:15px;}
+.product-specs ul {padding-left:6px;}
+.product-specs ul li{padding-left:20px;background:url(../images/i_desc.png) no-repeat;color:#474747;font:12px Arial;}
+/* For IE7 brower */
+*+HTML .product-specs ul{display:block !important;margin-bottom:25px !important;}

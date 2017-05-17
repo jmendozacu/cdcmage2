@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Core/etc/config.xsd">
+    <default>
+        <googletrustedstores>
+            <license>
+                <extension_label>Google Trusted Stores</extension_label>
+                <extension_version>2.0.2</extension_version>
+                <extension_code>gts</extension_code>
+                <get_online_license>1</get_online_license>
+            </license>
+            <gts>
+                <country>US</country>
+                <country>en_US</country>
+                <badge_position>BOTTOM_RIGHT</badge_position>
+                <badge_container_css>left:0px;
+top:0px;
+position:absolute;</badge_container_css>
+                <gs_product_id>sku</gs_product_id>
+            </gts>
+            <gts_orders>
+                <use_edd_module>0</use_edd_module>
+                <eta>0</eta>
+                <eta_ship>0</eta_ship>
+            </gts_orders>
+        </googletrustedstores>
+    </default>
+</config>
