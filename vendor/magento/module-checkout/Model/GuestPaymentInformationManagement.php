@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2016 Magento. All rights reserved.
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -80,7 +80,10 @@ class GuestPaymentInformationManagement implements \Magento\Checkout\Api\GuestPa
         try {
             $orderId = $this->cartManagement->placeOrder($cartId);
         } catch (\Exception $e) {
-            throw new CouldNotSaveException(__('Unable to place order. Please try again later.'), $e);
+            throw new CouldNotSaveException(
+                __('An error occurred on the server. Please try to place the order again.'),
+                $e
+            );
         }
         return $orderId;
     }

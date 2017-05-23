@@ -6,11 +6,18 @@
 
 // @codingStandardsIgnoreFile
 
-/* @var $block \Magento\Catalog\Block\Product\AbstractProduct */
+/*
+ * @var $block \Magento\Catalog\Block\Product\AbstractProduct
+ * @var $imageBlockBuilder \Magento\Catalog\Block\Product\ImageBlockBuilder
+ */
 ?>
 
 <?php
 $columns = "columns4";
+$_portohelper = $this->helper('Smartwave\Porto\Helper\Data');
+$review_model = $_portohelper->getModel('\Magento\Review\Model\Review');
+$_category_config = $_portohelper->getConfig('porto_settings/category');
+$_category_grid_config = $this->helper('Smartwave\Porto\Helper\Data')->getConfig('porto_settings/category_grid');
 switch ($type = $block->getType()) {
 
     case 'related-rule':
@@ -79,13 +86,14 @@ switch ($type = $block->getType()) {
         if ($exist = count($block->getItemCollection()->getItems())) {
             $type = 'upsell';
             $class = $type;
-
+            $upsell_columns = $_portohelper->getConfig('porto_settings/product/upsell_columns');
+            if($upsell_columns)
+                $columns = "columns".$upsell_columns;
             $image = 'upsell_products_list';
             $title = __('We found other products you might like!');
             $items = $block->getItemCollection()->getItems();
             $limit = $block->getItemLimit('upsell');
             $shuffle = 0;
-            $columns = "columns4";
             
             $showWishlist = false;
             $showCompare = false;
@@ -160,16 +168,9 @@ switch ($type = $block->getType()) {
     break;
 }
 
-$_imagehelper = $this->helper('Magento\Catalog\Helper\Image');
-$_portohelper = $this->helper('Smartwave\Porto\Helper\Data');
-$review_model = $_portohelper->getModel('\Magento\Review\Model\Review');
-$_category_config = $_portohelper->getConfig('porto_settings/category');
 $image = 'category_page_grid';
 $hover_image = 'category_page_grid-hover';
-$image_width = ($_category_config['ratio_width'])?$_category_config['ratio_width']:300;
-$image_height = ($_category_config['ratio_height'])?$_category_config['ratio_height']:300;
 ?>
-
 <?php if ($exist):?>
 
     <?php if ($type == 'related' || $type == 'upsell'): ?>
@@ -181,6 +182,7 @@ $image_height = ($_category_config['ratio_height'])?$_category_config['ratio_hei
     <?php else: ?>
         <div class="block <?php /* @escapeNotVerified */ echo $class; ?>">
     <?php endif; ?>
+    <div class="clearer"></div>
     <div class="block-title title">
         <strong id="block-<?php /* @escapeNotVerified */ echo $class?>-heading" role="heading" aria-level="2"><?php /* @escapeNotVerified */ echo $title; ?></strong>
     </div>
@@ -215,31 +217,26 @@ $image_height = ($_category_config['ratio_height'])?$_category_config['ratio_hei
                 <div class="product-item-info <?php /* @escapeNotVerified */ echo $available; ?>">
                     <?php /* @escapeNotVerified */ echo '<!-- ' . $image . '-->' ?>
                     <a href="<?php echo $_item->getProductUrl() ?>" class="product photo product-item-photo" tabindex="-1">
-                        <?php
-                            if($_category_config['aspect_ratio'])
-                                $productImage = $_imagehelper->init($_item, $image)->constrainOnly(FALSE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize($image_width);
-                            else
-                                $productImage = $_imagehelper->init($_item, $image)->resize($image_width, $image_height);
-                            $productImageUrl = $productImage->getUrl();
-                        ?>
-                            <img class="product-image-photo default_image" src="<?php echo $productImageUrl; ?>" alt="<?php echo $productImage->getLabel(); ?>"/>
+                        <?php $productImage = $imageBlockBuilder->buildBlock($_product, $image); ?>
+                        <img class="product-image-photo default_image" src="<?php echo $productImage->getImageUrl(); ?>" alt="<?php echo $productImage->getLabel(); ?>"/>
                         <?php if($_category_config['alternative_image']): ?>
-                        <?php
-                            if($_category_config['aspect_ratio'])
-                                $productHoverImage = $_imagehelper->init($_item, $hover_image)->constrainOnly(FALSE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize($image_width);
-                            else
-                                $productHoverImage = $_imagehelper->init($_item, $hover_image)->resize($image_width, $image_height);
-                            $productHoverImageUrl = $productHoverImage->getUrl();
-                        ?>
-                            <?php if($productImageUrl != str_replace("/thumbnail/","/small_image/",$productHoverImageUrl)): ?>
-                            <img class="product-image-photo hover_image" src="<?php echo $productHoverImageUrl; ?>" alt="<?php echo $productHoverImage->getLabel(); ?>"/>
-                            <?php endif; ?>
+                            <?php $productHoverImage = $imageBlockBuilder->buildBlock($_product, $hover_image); ?>
+                            <img class="product-image-photo hover_image" src="<?php echo $productHoverImage->getImageUrl(); ?>" alt="<?php echo $productHoverImage->getLabel(); ?>"/>
                         <?php endif; ?>
                     </a>
                     <div class="product details product-item-details">
-                        <strong class="product name product-item-name"><a class="product-item-link" title="<?php echo $block->escapeHtml($_item->getName()) ?>" href="<?php /* @escapeNotVerified */ echo $block->getProductUrl($_item) ?>">
-                            <?php echo $block->escapeHtml($_item->getName()) ?></a>
-                        </strong>
+                        <?php if($type == 'related'):?>
+                            <strong class="product name product-item-name"><a class="product-item-link" title="<?php echo $block->escapeHtml($_item->getName()) ?>" href="<?php /* @escapeNotVerified */ echo $block->getProductUrl($_item) ?>">
+                                    <?php echo $block->escapeHtml($_item->getName()) ?></a>
+                            </strong>
+                        <?php else:?>
+                            <?php if(!$_category_grid_config['move_title']):?>
+                                <strong class="product name product-item-name"><a class="product-item-link" title="<?php echo $block->escapeHtml($_item->getName()) ?>" href="<?php /* @escapeNotVerified */ echo $block->getProductUrl($_item) ?>">
+                                        <?php echo $block->escapeHtml($_item->getName()) ?></a>
+                                </strong>
+                            <?php endif;?>
+                        <?php endif;?>
+
                         <?php if($_category_config['rating_star']): ?>
                         <?php
                             $review_model->getEntitySummary($_item);
@@ -258,7 +255,11 @@ $image_height = ($_category_config['ratio_height'])?$_category_config['ratio_hei
                         </div>
                         <?php endif; ?>
                         <?php endif; ?>
-
+                        <?php if($_category_grid_config['move_title'] && $type != 'related'):?>
+                            <strong class="product name product-item-name"><a class="product-item-link" title="<?php echo $block->escapeHtml($_item->getName()) ?>" href="<?php /* @escapeNotVerified */ echo $block->getProductUrl($_item) ?>">
+                                    <?php echo $block->escapeHtml($_item->getName()) ?></a>
+                            </strong>
+                        <?php endif;?>
                         <?php /* @escapeNotVerified */ echo $block->getProductPrice($_item); ?>
 
                             <?php if (!$_item->isComposite() && $_item->isSaleable() && $type == 'related'): ?>

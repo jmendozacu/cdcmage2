@@ -12,30 +12,18 @@ use Magento\Framework\App\Action\Action;
  * Product list template
  *
  * @var $block \Smartwave\Filterproducts\Block\
+ * @var $imageBlockBuilder \Magento\Catalog\Block\Product\ImageBlockBuilder
  */
 ?>
 <?php
 $_productCollection = $block->getLoadedProductCollection();
 $_helper = $this->helper('Magento\Catalog\Helper\Output');
-$_imagehelper = $this->helper('Magento\Catalog\Helper\Image');
 $_portohelper = $this->helper('Smartwave\Porto\Helper\Data');
 $review_model = $_portohelper->getModel('\Magento\Review\Model\Review');
 $_category_config = $_portohelper->getConfig('porto_settings/category');
 $_category_grid_config = $_portohelper->getConfig('porto_settings/category_grid');
 $_product_label_config = $this->helper('Smartwave\Porto\Helper\Data')->getConfig('porto_settings/product_label');
 
-$aspect_ratio = $this->getData("aspect_ratio");
-if($aspect_ratio == null) {
-    $aspect_ratio = $_category_config['aspect_ratio'];
-}
-$image_width = $this->getData("image_width");
-if(!$image_width) {
-    $image_width = ($_category_config['ratio_width'])?$_category_config['ratio_width']:300;
-}
-$image_height = $this->getData("image_height");
-if(!$image_height) {
-    $image_height = ($_category_config['ratio_height'])?$_category_config['ratio_height']:300;  
-}
 $move_actions = $this->getData("move_actions");
 if($move_actions == null) {
     $move_actions = $_category_grid_config['move_actions'];
@@ -65,26 +53,12 @@ if($column_count == null) {
                     <?php // Product Image ?>
                     <div class="product photo product-item-photo">
                         <a href="<?php echo $_product->getProductUrl() ?>" tabindex="-1">
-                        <?php
-                            if($aspect_ratio)
-                                $productImage = $_imagehelper->init($_product, $image)->constrainOnly(FALSE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize($image_width);
-                            else
-                                $productImage = $_imagehelper->init($_product, $image)->resize($image_width, $image_height);
-                            $productImageUrl = $productImage->getUrl();
-                        ?>
-                            <img class="product-image-photo default_image" src="<?php echo $productImageUrl; ?>" alt="<?php echo $productImage->getLabel(); ?>"/>
-                        <?php if($_category_config['alternative_image']): ?>
-                        <?php
-                            if($aspect_ratio)
-                                $productHoverImage = $_imagehelper->init($_product, $hover_image)->constrainOnly(FALSE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize($image_width);
-                            else
-                                $productHoverImage = $_imagehelper->init($_product, $hover_image)->resize($image_width, $image_height);
-                            $productHoverImageUrl = $productHoverImage->getUrl();
-                        ?>
-                            <?php if($productImageUrl != str_replace("/thumbnail/","/small_image/",$productHoverImageUrl)): ?>
-                            <img class="product-image-photo hover_image" src="<?php echo $productHoverImageUrl; ?>" alt="<?php echo $productHoverImage->getLabel(); ?>"/>
+                            <?php $productImage = $imageBlockBuilder->buildBlock($_product, $image); ?>
+                            <img class="product-image-photo default_image" src="<?php echo $productImage->getImageUrl(); ?>" alt="<?php echo $productImage->getLabel(); ?>"/>
+                            <?php if($_category_config['alternative_image']): ?>
+                                <?php $productHoverImage = $imageBlockBuilder->buildBlock($_product, $hover_image); ?>
+                                <img class="product-image-photo hover_image" src="<?php echo $productHoverImage->getImageUrl(); ?>" alt="<?php echo $productHoverImage->getLabel(); ?>"/>
                             <?php endif; ?>
-                        <?php endif; ?>
                         </a>
                         <?php
                             $product_label = "";
@@ -130,6 +104,13 @@ if($column_count == null) {
                                         <form data-role="tocart-form" action="<?php echo $postParams['action']; ?>" method="post">
                                             <input type="hidden" name="product" value="<?php echo $postParams['data']['product']; ?>">
                                             <input type="hidden" name="<?php echo Action::PARAM_NAME_URL_ENCODED; ?>" value="<?php echo $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+                                            <?php if(isset($_category_config['qty_field']) && $_category_config['qty_field']):?>
+                                                <div class="qty-box">
+                                                    <a href="javascript:void(0)" class="qtyminus"><i class="porto-icon-minus"></i></a>
+                                                    <input type="text" name="qty" id="qty" maxlength="12" value="<?php /* @escapeNotVerified */ echo $block->getProductDefaultQty() * 1 ?>" title="<?php /* @escapeNotVerified */ echo __('Qty') ?>" class="input-text qty" data-validate="<?php echo $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"/>
+                                                    <a href="javascript:void(0)" class="qtyplus"><i class="porto-icon-plus"></i></a>
+                                                </div>
+                                            <?php endif;?>
                                             <?php echo $block->getBlockHtml('formkey')?>
                                             <button type="submit"
                                                     title="<?php echo $block->escapeHtml(__('Add to Cart')); ?>"
@@ -225,7 +206,7 @@ if($column_count == null) {
                                 <?php if($_category_config['addtowishlist']): ?>
                                 <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow()): ?>
                                     <a href="#"
-                                       class="action towishlist actions-secondary"
+                                       class="action towishlist actions-secondary <?php if(isset($_category_config['qty_field']) && $_category_config['qty_field']):?>has-qty<?php endif;?>"
                                        title="<?php echo $block->escapeHtml(__('Add to Wish List')); ?>"
                                        aria-label="<?php echo $block->escapeHtml(__('Add to Wish List')); ?>"
                                        data-post='<?php echo $block->getAddToWishlistParams($_product); ?>'
@@ -242,6 +223,13 @@ if($column_count == null) {
                                         <form data-role="tocart-form" action="<?php echo $postParams['action']; ?>" method="post">
                                             <input type="hidden" name="product" value="<?php echo $postParams['data']['product']; ?>">
                                             <input type="hidden" name="<?php echo Action::PARAM_NAME_URL_ENCODED; ?>" value="<?php echo $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+                                            <?php if(isset($_category_config['qty_field']) && $_category_config['qty_field']):?>
+                                                <div class="qty-box">
+                                                    <a href="javascript:void(0)" class="qtyminus"><i class="porto-icon-minus"></i></a>
+                                                    <input type="text" name="qty" id="qty" maxlength="12" value="<?php /* @escapeNotVerified */ echo $block->getProductDefaultQty() * 1 ?>" title="<?php /* @escapeNotVerified */ echo __('Qty') ?>" class="input-text qty" data-validate="<?php echo $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"/>
+                                                    <a href="javascript:void(0)" class="qtyplus"><i class="porto-icon-plus"></i></a>
+                                                </div>
+                                            <?php endif;?>
                                             <?php echo $block->getBlockHtml('formkey')?>
                                             <button type="submit"
                                                     title="<?php echo $block->escapeHtml(__('Add to Cart')); ?>"
@@ -277,7 +265,7 @@ if($column_count == null) {
                                 $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');
                                 ?>
                                 <a href="#"
-                                   class="action tocompare actions-secondary"
+                                   class="action tocompare actions-secondary <?php if(isset($_category_config['qty_field']) && $_category_config['qty_field']):?>has-qty<?php endif;?>"
                                    title="<?php echo $block->escapeHtml(__('Add to Compare')); ?>"
                                    aria-label="<?php echo $block->escapeHtml(__('Add to Compare')); ?>"
                                    data-post='<?php echo $compareHelper->getPostDataParams($_product); ?>'

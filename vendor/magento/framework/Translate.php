@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2016 Magento. All rights reserved.
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 namespace Magento\Framework;
@@ -181,7 +181,9 @@ class Translate implements \Magento\Framework\TranslateInterface
         $this->_loadPackTranslation();
         $this->_loadDbTranslation();
 
-        $this->_saveCache();
+        if (!$forceReload) {
+            $this->_saveCache();
+        }
 
         return $this;
     }

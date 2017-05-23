@@ -1,5 +1,5 @@
 /**
- * Copyright © 2016 Magento. All rights reserved.
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 /*jshint browser:true jquery:true*/
@@ -246,6 +246,7 @@ define([
                 target = $(this.options.minicart.list),
                 outerHeight;
 
+            self.scrollHeight = 0;
             target.children().each(function () {
 
                 if ($(this).find('.options').length > 0) {
@@ -259,7 +260,7 @@ define([
                 self.scrollHeight += outerHeight;
             });
 
-            target.height(height);
+            target.parent().height(height);
         }
     });
 

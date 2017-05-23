@@ -327,12 +327,15 @@
         }
     }
     .product-reviews-summary {
-        float: left;
         margin-bottom: 20px;
     }
     .box-tocart {
         margin-top: 0;
         margin-bottom: 30px;
+        
+        .actions {
+            margin-right: 20px;
+        }
     }
     .product-options-bottom {
         .box-tocart {
@@ -458,7 +461,12 @@
     border-top: 1px solid #ebebeb;
 }
 
-.product-addto-links, .product-social-links {
+.moved-add-to-links {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.product-addto-links, .moved-add-to-links, .product-social-links {
     .action span {
         display: none;
     }

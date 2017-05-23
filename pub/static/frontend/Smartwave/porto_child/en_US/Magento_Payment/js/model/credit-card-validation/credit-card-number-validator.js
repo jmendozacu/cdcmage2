@@ -1,5 +1,5 @@
 /**
- * Copyright © 2016 Magento. All rights reserved.
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 /*jshint browser:true jquery:true*/
@@ -13,6 +13,13 @@ define(
     function (utils, luhn10, creditCardTypes) {
         'use strict';
 
+        /**
+         * Validation result wrapper
+         * @param {Object} card
+         * @param {Boolean} isPotentiallyValid
+         * @param {Boolean} isValid
+         * @returns {Object}
+         */
         function resultWrapper(card, isPotentiallyValid, isValid) {
             return {
                 card: card,

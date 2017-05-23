@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2016 Magento. All rights reserved.
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 namespace Magento\ConfigurableProduct\Model\Plugin;
@@ -84,8 +84,9 @@ class AroundProductRepositorySave
             $attributeCodes[] = $attributeCode;
         }
         $this->validateProductLinks($attributeCodes, $configurableLinks);
+        $product->getTypeInstance()->resetConfigurableAttributes($product);
 
-        return $subject->get($result->getSku(), false, $result->getStoreId(), true);
+        return $product;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2016 Magento. All rights reserved.
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -363,7 +363,8 @@ class ListProduct extends AbstractProduct implements IdentityInterface
                 [
                     'include_container' => true,
                     'display_minimal_price' => true,
-                    'zone' => \Magento\Framework\Pricing\Render::ZONE_ITEM_LIST
+                    'zone' => \Magento\Framework\Pricing\Render::ZONE_ITEM_LIST,
+                    'list_category_page' => true
                 ]
             );
         }
@@ -372,10 +373,14 @@ class ListProduct extends AbstractProduct implements IdentityInterface
     }
 
     /**
+     * Specifies that price rendering should be done for the list of products
+     * i.e. rendering happens in the scope of product list, but not single product
+     *
      * @return \Magento\Framework\Pricing\Render
      */
     protected function getPriceRender()
     {
-        return $this->getLayout()->getBlock('product.price.render.default');
+        return $this->getLayout()->getBlock('product.price.render.default')
+            ->setData('is_product_list', true);
     }
 }

@@ -3,7 +3,6 @@ return array (
   'modules' => 
   array (
     'Auctane_Api' => 1,
-    'FME_Banners' => 1,
     'Magento_Store' => 1,
     'Magento_AdvancedPricingImportExport' => 1,
     'Magento_Directory' => 1,
@@ -77,6 +76,7 @@ return array (
     'Magento_Rss' => 1,
     'Magento_CatalogRuleConfigurable' => 1,
     'Magento_Paypal' => 1,
+    'Magento_SalesInventory' => 1,
     'Magento_OfflineShipping' => 1,
     'Magento_GoogleAdwords' => 1,
     'Magento_SampleData' => 1,
@@ -106,6 +106,8 @@ return array (
     'Magento_Weee' => 1,
     'Magento_CatalogWidget' => 1,
     'Magento_Wishlist' => 1,
+    'Mageplaza_Core' => 1,
+    'Mageplaza_LayeredNavigation' => 1,
     'Reviewscouk_Reviews' => 1,
     'Smartwave_Core' => 1,
     'Smartwave_Filterproducts' => 1,
@@ -116,6 +118,5 @@ return array (
     'Vendor_TempSetupDiCompileFix' => 1,
     'Wyomind_Core' => 1,
     'Wyomind_DataFeedManager' => 1,
-    'Wyomind_GoogleTrustedStores' => 1,
   ),
 );

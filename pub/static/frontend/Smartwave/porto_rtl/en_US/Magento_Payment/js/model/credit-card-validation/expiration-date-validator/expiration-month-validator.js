@@ -1,5 +1,5 @@
 /**
- * Copyright © 2016 Magento. All rights reserved.
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 /*jshint browser:true jquery:true*/
@@ -9,6 +9,12 @@ define(
     function () {
         'use strict';
 
+        /**
+         * Validation result wrapper
+         * @param {Boolean} isValid
+         * @param {Boolean} isPotentiallyValid
+         * @returns {Object}
+         */
         function resultWrapper(isValid, isPotentiallyValid) {
             return {
                 isValid: isValid,
@@ -20,7 +26,7 @@ define(
             var month,
                 monthValid;
 
-            if ((value.replace(/\s/g, '') === '') || (value === '0')) {
+            if (value.replace(/\s/g, '') === '' || value === '0') {
                 return resultWrapper(false, true);
             }
 

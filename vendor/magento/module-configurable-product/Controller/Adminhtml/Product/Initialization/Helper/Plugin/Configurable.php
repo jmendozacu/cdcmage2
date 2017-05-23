@@ -2,7 +2,7 @@
 /**
  * Product initialization helper
  *
- * Copyright © 2016 Magento. All rights reserved.
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 namespace Magento\ConfigurableProduct\Controller\Adminhtml\Product\Initialization\Helper\Plugin;
@@ -127,8 +127,9 @@ class Configurable
      */
     private function setLinkedProducts(ProductInterface $product, ProductExtensionInterface $extensionAttributes)
     {
-        $associatedProductIds = $this->request->getPost('associated_product_ids', []);
-        $variationsMatrix = $this->getVariationMatrix();
+        $associatedProductIds = $product->hasData('associated_product_ids') ?
+            $product->getData('associated_product_ids') : [];
+        $variationsMatrix = $this->getVariationMatrixFromProduct($product);
 
         if ($associatedProductIds || $variationsMatrix) {
             $this->variationHandler->prepareAttributeSet($product);
@@ -142,9 +143,34 @@ class Configurable
     }
 
     /**
+     * Get variation-matrix from product
+     *
+     * @param ProductInterface $product
+     * @return array
+     */
+    private function getVariationMatrixFromProduct(ProductInterface $product)
+    {
+        $result = [];
+
+        $configurableMatrix = $product->hasData('configurable-matrix') ? $product->getData('configurable-matrix') : [];
+        foreach ($configurableMatrix as $item) {
+            if ($item['newProduct']) {
+                $result[$item['variationKey']] = $this->mapData($item);
+
+                if (isset($item['qty'])) {
+                    $result[$item['variationKey']]['quantity_and_stock_status']['qty'] = $item['qty'];
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Get variation-matrix from request
      *
      * @return array
+     * @deprecated
      */
     protected function getVariationMatrix()
     {

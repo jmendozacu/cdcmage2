@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2016 Magento. All rights reserved.
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 use Magento\Framework\App\Action\Action;
@@ -13,6 +13,7 @@ use Magento\Framework\App\Action\Action;
  * Product list template
  *
  * @var $block \Magento\Catalog\Block\Product\ListProduct
+ * @var $imageBlockBuilder \Magento\Catalog\Block\Product\ImageBlockBuilder
  */
 ?>
 <?php
@@ -27,12 +28,12 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
     <?php
     if ($block->getMode() == 'grid') {
         $viewMode = 'grid';
-        $image = 'category_page_grid';
+        $imageDisplayArea = 'category_page_grid';
         $showDescription = false;
         $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
     } else {
         $viewMode = 'list';
-        $image = 'category_page_list';
+        $imageDisplayArea = 'category_page_list';
         $showDescription = true;
         $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
     }
@@ -49,7 +50,7 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
                 <?php /* @escapeNotVerified */ echo($iterator++ == 1) ? '<li class="item product product-item">' : '</li><li class="item product product-item">' ?>
                 <div class="product-item-info" data-container="product-grid">
                     <?php
-                    $productImage = $block->getImage($_product, $image);
+                    $productImage = $imageBlockBuilder->buildBlock($_product, $imageDisplayArea);
                     if ($pos != null) {
                         $position = ' style="left:' . $productImage->getWidth() . 'px;'
                             . 'top:' . $productImage->getHeight() . 'px;"';
@@ -97,28 +98,9 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
                                     <?php endif; ?>
                                 </div>
                                 <div data-role="add-to-links" class="actions-secondary"<?php echo strpos($pos, $viewMode . '-secondary') ? $position : ''; ?>>
-                                    <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow()): ?>
-                                        <a href="#"
-                                           class="action towishlist"
-                                           title="<?php echo $block->escapeHtml(__('Add to Wish List')); ?>"
-                                           aria-label="<?php echo $block->escapeHtml(__('Add to Wish List')); ?>"
-                                           data-post='<?php /* @escapeNotVerified */ echo $block->getAddToWishlistParams($_product); ?>'
-                                           data-action="add-to-wishlist"
-                                           role="button">
-                                            <span><?php /* @escapeNotVerified */ echo __('Add to Wish List') ?></span>
-                                        </a>
+                                    <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
+                                        <?php echo $addToBlock->setProduct($_product)->getChildHtml(); ?>
                                     <?php endif; ?>
-                                    <?php
-                                    $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');
-                                    ?>
-                                    <a href="#"
-                                       class="action tocompare"
-                                       title="<?php echo $block->escapeHtml(__('Add to Compare')); ?>"
-                                       aria-label="<?php echo $block->escapeHtml(__('Add to Compare')); ?>"
-                                       data-post='<?php /* @escapeNotVerified */ echo $compareHelper->getPostDataParams($_product); ?>'
-                                       role="button">
-                                        <span><?php /* @escapeNotVerified */ echo __('Add to Compare') ?></span>
-                                    </a>
                                 </div>
                             </div>
                             <?php if ($showDescription):?>

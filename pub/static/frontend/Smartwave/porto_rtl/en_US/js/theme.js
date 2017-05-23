@@ -47,6 +47,20 @@ require([
             return orig.apply(this, arguments);
         }
     })();
+    $.fn.extend({
+        scrollToMe: function(){
+            if($(this).length){
+                var top = $(this).offset().top - 100;
+                $('html,body').animate({scrollTop: top}, 300);
+            }
+        },
+        scrollToJustMe: function(){
+            if($(this).length){
+                var top = jQuery(this).offset().top;
+                $('html,body').animate({scrollTop: top}, 300);
+            }
+        }
+    });
     $(document).ready(function(){
         var windowScroll_t;
         $(window).scroll(function(){
@@ -69,6 +83,10 @@ require([
                 });
             }
         }
+        $(".products-grid .weltpixel-quickview").each(function(){
+            $(this).appendTo($(this).parent().parent().children(".product-item-photo"));
+        });
+        $('#maincontent .columns').append($('.ln_overlay').detach());
         $(".word-rotate").each(function() {
 
             var $this = $(this),
@@ -104,7 +122,17 @@ require([
             }, 2000);
 
         });
-        
+        $(".top-links-icon").off("click").on("click", function(e){
+            if($(this).parent().children("ul.links").hasClass("show")) {
+                $(this).parent().children("ul.links").removeClass("show");
+            } else {
+                $(this).parent().children("ul.links").addClass("show");
+            }
+            e.stopPropagation();
+        });
+        $(".top-links-icon").parent().click(function(e){
+            e.stopPropagation();
+        });
         $(".search-toggle-icon").click(function(e){
             if($(this).parent().children(".block-search").hasClass("show")) {
                 $(this).parent().children(".block-search").removeClass("show");
@@ -118,9 +146,41 @@ require([
         });
         $("html,body").click(function(){
             $(".search-toggle-icon").parent().children(".block-search").removeClass("show");
+            $(".top-links-icon").parent().children("ul.links").removeClass("show");
         });
-        
+
         /********************* Qty Holder **************************/
+        $(document).on("click", ".qtyplus", function(e) {
+            // Stop acting like a button
+            e.preventDefault();
+            // Get its current value
+            var currentVal = parseInt($(this).parents('form').find('input[name="qty"]').val());
+            // If is not undefined
+            if (!isNaN(currentVal)) {
+                // Increment
+                $(this).parents('form').find('input[name="qty"]').val(currentVal + 1);
+            } else {
+                // Otherwise put a 0 there
+                $(this).parents('form').find('input[name="qty"]').val(0);
+            }
+        });
+        // This button will decrement the value till 0
+        $(document).on("click", ".qtyminus", function(e) {
+            // Stop acting like a button
+            e.preventDefault();
+            // Get the field name
+            fieldName = $(this).attr('field');
+            // Get its current value
+            var currentVal = parseInt($(this).parents('form').find('input[name="qty"]').val());
+            // If it isn't undefined or its greater than 0
+            if (!isNaN(currentVal) && currentVal > 0) {
+                // Decrement one
+                $(this).parents('form').find('input[name="qty"]').val(currentVal - 1);
+            } else {
+                // Otherwise put a 0 there
+                $(this).parents('form').find('input[name="qty"]').val(0);
+            }
+        });
         $(".qty-inc").unbind('click').click(function(){
             if($(this).parent().parent().children(".control").children("input.input-text.qty").is(':enabled')){
                 $(this).parent().parent().children(".control").children("input.input-text.qty").val((+$(this).parent().parent().children(".control").children("input.input-text.qty").val() + 1) || 0);
