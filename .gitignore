@@ -68,3 +68,6 @@ live/
 nginx.conf.sample
 package.json.sample
 Gruntfile.js.sample
+pub/static/*
+pub/errors/*
+pub/media/*
