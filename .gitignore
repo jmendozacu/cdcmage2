@@ -50,7 +50,7 @@ atlassian*
 /setup
 /var
 /vendor
-vendor/*
+/update
 
 !/composer.json
 !/composer.lock
@@ -64,7 +64,6 @@ app/etc/config.xml
 app/etc/enterprise.xml
 app/etc/local.xml.additional
 app/etc/local.xml.template
-app/.htaccess
 /cron.php
 /cron.sh
 downloader/
@@ -81,8 +80,6 @@ shell/compiler.php
 shell/indexer.php
 shell/log.php
 .ftpquota
-.htaccess
-.htaccess.sample
 /api.php
 bridge.php
 bridge1.php
