@@ -13,10 +13,8 @@ atlassian*
 /.idea
 /.gitattributes
 
-
 /app/etc/local.xml
 /app/etc/env.php
-
 
 /dev/shell
 /dev/tests/*/framework
@@ -52,6 +50,7 @@ atlassian*
 /setup
 /var
 /vendor
+vendor/*
 
 !/composer.json
 !/composer.lock
