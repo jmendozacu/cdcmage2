@@ -45,10 +45,17 @@ atlassian*
 
 /dev/*.*
 
+<<<<<<< HEAD
 
 /pub
 /setup
 /var
+=======
+/pub
+/setup
+/var
+
+>>>>>>> github/master
 
 !/composer.json
 !/composer.lock
