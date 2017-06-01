@@ -22,10 +22,7 @@ DirectoryIndex index.php
 <IfModule mod_rewrite.c>
     Options +FollowSymLinks
     RewriteEngine on
-<<<<<<< HEAD
     RewriteBase /
-=======
->>>>>>> github/master
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
     RewriteCond %{REQUEST_METHOD} ^TRAC[EK]
     RewriteRule .* - [L,R=405]
