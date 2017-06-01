@@ -45,12 +45,10 @@ atlassian*
 
 /dev/*.*
 
-/lib
 /pub
 /setup
 /var
-/vendor
-/update
+
 
 !/composer.json
 !/composer.lock
