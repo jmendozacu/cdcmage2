@@ -169,4 +169,5 @@ return array(
     'Composer\\Semver\\' => array($vendorDir . '/composer/semver/src'),
     'Composer\\' => array($vendorDir . '/composer/composer/src/Composer'),
     'Braintree\\' => array($vendorDir . '/braintree/braintree_php/lib/Braintree'),
+    'Aheadworks\\Rbslider\\' => array($vendorDir . '/aheadworks/module-rbslider'),
 );

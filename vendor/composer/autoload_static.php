@@ -124,6 +124,7 @@ class ComposerStaticInit8a09a4e3946071181749b9d3c872c3db
         '4137e072aca869574ccb2dd0da693e02' => __DIR__ . '/..' . '/magento/module-advanced-pricing-import-export/registration.php',
         '1158fd4355efa1508f87cf82bdcd70ac' => __DIR__ . '/..' . '/magento/module-admin-notification/registration.php',
         'ecb8e9b41f51c277a87468608b694cd4' => __DIR__ . '/..' . '/magento/module-marketplace/registration.php',
+        '5dabdfafb2b9f8fbb44c546b5c0fb38b' => __DIR__ . '/..' . '/aheadworks/module-rbslider/registration.php',
         'b4cf39431a4b949eea8aa69ebb3d39da' => __DIR__ . '/../..' . '/app/etc/NonComposerComponentRegistration.php',
     );
 
@@ -320,6 +321,10 @@ class ComposerStaticInit8a09a4e3946071181749b9d3c872c3db
         'B' => 
         array (
             'Braintree\\' => 10,
+        ),
+        'A' => 
+        array (
+            'Aheadworks\\Rbslider\\' => 20,
         ),
     );
 
@@ -976,6 +981,10 @@ class ComposerStaticInit8a09a4e3946071181749b9d3c872c3db
         'Braintree\\' => 
         array (
             0 => __DIR__ . '/..' . '/braintree/braintree_php/lib/Braintree',
+        ),
+        'Aheadworks\\Rbslider\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/aheadworks/module-rbslider',
         ),
     );
 
