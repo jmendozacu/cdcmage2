@@ -134,7 +134,8 @@ class LoginPost extends \Magento\Customer\Controller\AbstractAccount
      */
     public function execute()
     {
-        if ($this->session->isLoggedIn() || !$this->formKeyValidator->validate($this->getRequest())) {
+        //if ($this->session->isLoggedIn() || !$this->formKeyValidator->validate($this->getRequest())) {
+		if ($this->session->isLoggedIn()) {
             /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
             $resultRedirect = $this->resultRedirectFactory->create();
             $resultRedirect->setPath('*/*/');
@@ -186,9 +187,11 @@ class LoginPost extends \Magento\Customer\Controller\AbstractAccount
                     $this->session->setUsername($login['username']);
                 } catch (\Exception $e) {
                     // PA DSS violation: throwing or logging an exception here can disclose customer password
-                    $this->messageManager->addError(
-                        __('An unspecified error occurred. Please contact us for assistance.')
-                    );
+					$message = $e->getMessage();
+                    $this->messageManager->addError($message);
+//					$this->messageManager->addError(
+//						__('GFY - An unspecified error occurred. Please contact us for assistance.')
+//                   );
                 }
             } else {
                 $this->messageManager->addError(__('A login and a password are required.'));

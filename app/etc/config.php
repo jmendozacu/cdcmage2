@@ -115,9 +115,9 @@ return array (
     'Smartwave_Megamenu' => 1,
     'Smartwave_Porto' => 1,
     'Smartwave_Socialfeeds' => 1,
-    'Ubertheme_Ubdatamigration' => 1,
+    'Ubertheme_Ubdatamigration' => 0,
     'Vendor_TempSetupDiCompileFix' => 1,
-    'Wyomind_Core' => 1,
-    'Wyomind_DataFeedManager' => 1,
+    'Wyomind_Core' => 0,
+    'Wyomind_DataFeedManager' => 0,
   ),
 );
