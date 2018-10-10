@@ -12,10 +12,12 @@
  *                     @package   Mageplaza_Core
  *                     @copyright Copyright (c) 2016
  *                     @license   https://www.mageplaza.com/LICENSE.txt Mageplaza License
- */
+
 
 \Magento\Framework\Component\ComponentRegistrar::register(
     \Magento\Framework\Component\ComponentRegistrar::MODULE,
     'Mageplaza_Core',
     __DIR__
 );
+ */
+
